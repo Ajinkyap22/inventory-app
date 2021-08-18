@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header><%- include('./partials/header') -%></header>
+
+      <main class="main">
+        <h1><%= league.name %></h1>
+        <p><%= league.description %></p>
+
+        <p><strong>Teams :</strong></p>
+        <ul>
+          <!-- prettier-ignore -->
+          <% if(teams.length) { %>
+            <% teams.forEach(team => { %>
+          <li class="list-style-type-none">
+            <a href="<%= team.url %>" class="link-primary text-decoration-none""
+              ><%= team.name %></a
+            >
+          </li>
+          <% }) } else { %>
+          <li class="list-style-type-none">There are no Teams in this league.</li>
+          <% } %>
+        </ul>
+      </main>
+
+      <footer><%- include('./partials/footer') -%></footer>
+    </div>
+  </body>
+</html>

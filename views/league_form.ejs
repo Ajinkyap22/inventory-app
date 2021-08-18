@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid p-4">
+      <header><%- include('./partials/header') -%></header>
+
+      <main class="main">
+        <h1><%= title %></h1>
+
+        <form method="POST" action="" enctype="multipart/form-data">
+          <div class="form-group pb-3">
+            <label for="name" class="fw-bold py-2">Name :</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Official name of the league"
+              value="<%= typeof league == 'undefined' ? '' : league.name %>"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="description" class="fw-bold py-2">Description :</label>
+            <textarea
+              type="textarea"
+              name="description"
+              placeholder="Information about the league"
+              value="<%= typeof league == 'undefined' ? '' : league.description %>"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="leagueLogo" class="fw-bold py-2">Logo :</label>
+            <input
+              type="file"
+              name="leagueLogo"
+              class="form-control"
+              value="<%= typeof league !== 'undefined' ? league.fileName : ''  %>"
+              required
+            />
+          </div>
+
+          <button class="btn btn-primary">Create</button>
+          <a href="/store" class="link-secondary px-3 text-decoration-none"
+            >Cancel</a
+          >
+        </form>
+
+        <% if (typeof errors != 'undefined') { %>
+        <ul>
+          <% errors.forEach(err => { %>
+          <li><%= err.msg %></li>
+          <% }) %>
+        </ul>
+        <% } %>
+      </main>
+
+      <footer><%- include('./partials/footer') -%></footer>
+    </div>
+  </body>
+</html>

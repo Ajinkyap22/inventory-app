@@ -1,0 +1,116 @@
+const League = require("../models/league");
+const Team = require("../models/team");
+const { body, validationResult } = require("express-validator");
+const async = require("async");
+
+// Display list of all leagues
+exports.league_list = function (req, res, next) {
+  League.find().exec((err, leagues) => {
+    if (err) return next(err);
+
+    res.render("league_list", { title: "All Leagues", leagues });
+  });
+};
+
+// Display detail page for a specific league.
+exports.league_detail = function (req, res, next) {
+  async.parallel(
+    {
+      league: (callback) =>
+        League.findById(req.params.id).populate("team").exec(callback),
+      teams: (callback) => Team.find({ league: req.params.id }).exec(callback),
+    },
+    function (err, results) {
+      if (err) return next(err);
+
+      if (results.league == null) {
+        const error = new Error("League not found");
+        error.status = 404;
+        return next(error);
+      }
+
+      res.render("league_detail", {
+        title: "League Detail",
+        teams: results.teams,
+        league: results.league,
+      });
+    }
+  );
+};
+
+// Display league create form on GET.
+exports.league_create_get = function (req, res, next) {
+  res.render("league_form", { title: "Create League" });
+};
+
+// Handle league create on POST.
+exports.league_create_post = [
+  // Validate & sanitize field
+  body("name", "Name cannot be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .isAlphanumeric()
+    .withMessage("Name must be alphanumeric"),
+
+  body("description", "Description cannot be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  // Process request
+  (req, res, next) => {
+    // Extract errors
+    const errors = validationResult(req.body);
+
+    // Create league object
+    const league = new League({
+      name: req.body.name,
+      description: req.body.description,
+    });
+
+    // If file, set name
+    if (req.file && errors.isEmpty()) {
+      league.fileName = req.file.filename;
+    } else if (req.body.fileName) {
+      league.fileName = req.body.fileName;
+    }
+
+    // Render again with errors
+    if (!errors.isEmpty()) {
+      res.render("league_form", {
+        title: "Create League",
+        league,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Save
+      league.save((err) => {
+        if (err) return next(err);
+
+        res.redirect(league.url);
+      });
+    }
+  },
+];
+
+// Display league delete form on GET.
+exports.league_delete_get = function (req, res) {
+  res.send("NOT IMPLEMENTED: League delete GET");
+};
+
+// Handle league delete on POST.
+exports.league_delete_post = function (req, res) {
+  res.send("NOT IMPLEMENTED: League delete POST");
+};
+
+// Display league update form on GET.
+exports.league_update_get = function (req, res) {
+  res.send("NOT IMPLEMENTED: League update GET");
+};
+
+// Handle league update on POST.
+exports.league_update_post = function (req, res) {
+  res.send("NOT IMPLEMENTED: League update POST");
+};

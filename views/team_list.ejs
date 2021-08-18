@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<html>
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header><%- include('./partials/header'); -%></header>
+
+      <main class="main">
+        <h1><%= title %></h1>
+
+        <ul>
+          <!-- prettier-ignore -->
+          <% if(teams.length) { %>
+            <% teams.forEach(team => { %>
+          <li class="list-style-type-none">
+            <a href="<%= team.url %>" class="link-primary text-decoration-none"
+              ><%= team.name %></a
+            >
+          </li>
+          <% }) } else { %>
+          <li class="list-style-type-none">There are no Teams.</li>
+          <% } %>
+        </ul>
+      </main>
+
+      <footer><%- include('./partials/footer'); -%></footer>
+    </div>
+  </body>
+</html>

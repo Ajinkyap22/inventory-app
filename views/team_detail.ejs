@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header><%- include('./partials/header') -%></header>
+
+      <main class="main">
+        <h1><%= team.name %></h1>
+        <p><%= team.description %></p>
+
+        <p>
+          <strong>League : </strong
+          ><a
+            href="<%= team.league.url %>"
+            class="link-primary text-decoration-none"
+            ><%= team.league.name %></a
+          >
+        </p>
+
+        <p><strong>Team Kits :</strong></p>
+        <ul>
+          <% kits.forEach(kit => { %>
+          <li>
+            <a href="<%= kit.url %>" class="link-primary text-decoration-none"
+              ><%= kit.name %></a
+            >
+          </li>
+          <% }) %>
+        </ul>
+      </main>
+
+      <footer><%- include('./partials/footer') -%></footer>
+    </div>
+  </body>
+</html>

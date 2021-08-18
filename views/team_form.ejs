@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid p-4">
+      <header><%- include('./partials/header') -%></header>
+
+      <main class="main">
+        <h1><%= title %></h1>
+
+        <% if (typeof errors !== 'undefined') { %>
+        <ul>
+          <% errors.forEach(err => { %>
+          <li><%= err.msg %></li>
+          <% }) %>
+        </ul>
+        <% } %>
+
+        <form method="POST" action="" enctype="multipart/form-data">
+          <div class="form-group pb-3">
+            <label for="name" class="fw-bold py-2">Name :</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Official name of the team"
+              value="<%= typeof team == 'undefined' ? '' : team.name %>"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="description" class="fw-bold py-2">Description :</label>
+            <textarea
+              type="textarea"
+              name="description"
+              placeholder="Information about the team"
+              value="<%= typeof team == 'undefined' ? '' : team.description %>"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="league" class="fw-bold py-2">League :</label>
+            <select
+              type="select"
+              id="league"
+              name="league"
+              class="form-control"
+              placeholder="Select League"
+              required
+            >
+              <!-- prettier-ignore -->
+              <% leagues.sort((a,b) => { %>
+                <% let textA = a.name.toUpperCase(); %>
+                <% let textB = b.name.toUpperCase(); %>
+                <% return (textA < textB) ? -1 : (textA > textB) ? 1 : 0; %>
+              <% }) %> 
+              
+              <% leagues.forEach((league) => { %>
+                <% if (typeof team != 'undefined') { %>
+                  <% const selected = league._id.toString() === team.league._id.toString() ? 'selected' : '' %>
+              <option value="<%= league._id %>" <%="selected" %>
+                ><%= league.name %>
+              </option>
+              <% } else { %>
+              <option value="<%= league._id %>"><%= league.name %></option>
+              <% } %> <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="teamLogo" class="fw-bold py-2">Logo :</label>
+            <input
+              type="file"
+              name="teamLogo"
+              class="form-control"
+              value="<%= typeof team !== 'undefined' ? team.fileName : ''  %>"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Create</button>
+          <a href="/store" class="link-secondary px-3 text-decoration-none"
+            >Cancel</a
+          >
+        </form>
+      </main>
+
+      <footer><%- include('./partials/footer') -%></footer>
+    </div>
+  </body>
+</html>

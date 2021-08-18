@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header><%- include('./partials/header') -%></header>
+
+      <main class="main text-center">
+        <h1>FootyStore Inventory</h1>
+        <p>Manage the store inventory with just a few clicks!</p>
+
+        <% if(error) { %>
+        <p>Error getting data from the server.</p>
+        <% } else { %>
+        <p>The inventroy has following data:</p>
+
+        <ul>
+          <li class="list-style-type-none">
+            <strong>Leagues :</strong> <%= data.league_count %>
+          </li>
+          <li class="list-style-type-none">
+            <strong>Teams :</strong> <%= data.team_count %>
+          </li>
+          <li class="list-style-type-none">
+            <strong>Kits :</strong> <%= data.kit_count %>
+          </li>
+        </ul>
+        <% } %>
+      </main>
+
+      <footer><%- include('./partials/footer') -%></footer>
+    </div>
+  </body>
+</html>

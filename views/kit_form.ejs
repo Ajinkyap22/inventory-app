@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid p-4">
+      <header><%- include('./partials/header') -%></header>
+
+      <main class="main">
+        <h1><%= title %></h1>
+
+        <% if (typeof errors != 'undefined') { %>
+        <ul>
+          <% errors.forEach(err => { %>
+          <li><%= err.msg %></li>
+          <% }) %>
+        </ul>
+        <% } %>
+
+        <form method="POST" action="" enctype="multipart/form-data">
+          <div class="form-group pb-3">
+            <label for="name" class="fw-bold py-2">Name :</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name of the kit"
+              value="<%= typeof kit == 'undefined' ? '' : kit.name %>"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="description" class="fw-bold py-2">Description :</label>
+            <textarea
+              type="textarea"
+              name="description"
+              placeholder="Information about the kit"
+              value="<%= typeof kit == 'undefined' ? '' : kit.description %>"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="price" class="fw-bold py-2">Price :</label>
+            <input
+              type="number"
+              name="price"
+              placeholder="Price of the kit in USD"
+              value="<%= typeof kit == 'undefined' ? '' : kit.price %>"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="stock" class="fw-bold py-2">In Stock :</label>
+            <input
+              type="number"
+              name="stock"
+              placeholder="Available kits in stock"
+              value="<%= typeof kit == 'undefined' ? '' : kit.stock %>"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="team" class="fw-bold py-2">Team :</label>
+            <select
+              type="select"
+              id="team"
+              name="team"
+              class="form-control"
+              placeholder="Select Team"
+              required
+            >
+              <!-- prettier-ignore -->
+              <% teams.sort((a,b) => { %>
+                <% let textA = a.name.toUpperCase(); %>
+                <% let textB = b.name.toUpperCase(); %>
+                <% return (textA < textB) ? -1 : (textA > textB) ? 1 : 0; %>
+              <% }) %> 
+              
+              <% teams.forEach((team) => { %>
+                <% if (typeof kit != 'undefined') { %>
+                  <% const selected = team._id.toString() === kit.team._id.toString() ? 'selected' : '' %>
+              <option value="<%= team._id %>" <%="selected" %>
+                ><%= team.name %>
+              </option>
+              <% } else { %>
+              <option value="<%= team._id %>"><%= team.name %></option>
+              <% } %> <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group pb-3">
+            <label for="kitPic" class="fw-bold py-2">Picture :</label>
+            <input
+              type="file"
+              name="kitPic"
+              class="form-control"
+              value="<%= typeof kit !== 'undefined' ? kit.fileName : ''  %>"
+              required
+            />
+          </div>
+
+          <button class="btn btn-primary">Create</button>
+          <a href="/store" class="link-secondary px-3 text-decoration-none"
+            >Cancel</a
+          >
+        </form>
+      </main>
+
+      <footer><%- include('./partials/footer') -%></footer>
+    </div>
+  </body>
+</html>
