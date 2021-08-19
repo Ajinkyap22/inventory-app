@@ -20,6 +20,21 @@
             ><%= kit.team.name %></a
           >
         </p>
+
+        <p>
+          <a
+            href="<%= `${kit.url}/update` %>"
+            class="link-primary fw-bold text-decoration-none"
+            >Update Kit</a
+          >
+        </p>
+        <p>
+          <a
+            href="<%= `${kit.url}/delete` %>"
+            class="link-danger fw-bold text-decoration-none"
+            >Delete Kit</a
+          >
+        </p>
       </main>
 
       <footer><%- include('./partials/footer'); -%></footer>

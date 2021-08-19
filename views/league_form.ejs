@@ -16,8 +16,9 @@
             <input
               type="text"
               name="name"
+              id="name"
               placeholder="Official name of the league"
-              value="<%= typeof league == 'undefined' ? '' : league.name %>"
+              value="<%= typeof league === 'undefined' ? '' : league.name %>"
               class="form-control"
               required
             />
@@ -25,9 +26,11 @@
 
           <div class="form-group pb-3">
             <label for="description" class="fw-bold py-2">Description :</label>
+
             <textarea
               type="textarea"
               name="description"
+              id="description"
               placeholder="Information about the league"
               value="<%= typeof league == 'undefined' ? '' : league.description %>"
               class="form-control"
@@ -39,6 +42,7 @@
             <label for="leagueLogo" class="fw-bold py-2">Logo :</label>
             <input
               type="file"
+              id="leagueLogo"
               name="leagueLogo"
               class="form-control"
               value="<%= typeof league !== 'undefined' ? league.fileName : ''  %>"
@@ -52,7 +56,7 @@
           >
         </form>
 
-        <% if (typeof errors != 'undefined') { %>
+        <% if (typeof errors !== 'undefined') { %>
         <ul>
           <% errors.forEach(err => { %>
           <li><%= err.msg %></li>

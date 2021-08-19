@@ -53,7 +53,11 @@ router.post(
 // GET for updating league
 router.get("/league/:id/update", leagueController.league_update_get);
 // POST for updating league
-router.post("/league/:id/update", leagueController.league_update_post);
+router.post(
+  "/league/:id/update",
+  upload.single("leagueLogo"),
+  leagueController.league_update_post
+);
 // GET for deleting league
 router.get("/league/:id/delete", leagueController.league_delete_get);
 // POST for deleting league
@@ -75,7 +79,11 @@ router.post(
 // GET for updating team
 router.get("/team/:id/update", teamController.team_update_get);
 // POST for updating team
-router.post("/team/:id/update", teamController.team_update_post);
+router.post(
+  "/team/:id/update",
+  upload.single("teamLogo"),
+  teamController.team_update_post
+);
 // GET for deleting team
 router.get("/team/:id/delete", teamController.team_delete_get);
 // POST for deleting team
@@ -98,7 +106,11 @@ router.post(
 // GET for updating kit
 router.get("/kit/:id/update", kitController.kit_update_get);
 // POST for updating kit
-router.post("/kit/:id/update", kitController.kit_update_post);
+router.post(
+  "/kit/:id/update",
+  upload.single("kitPic"),
+  kitController.kit_update_post
+);
 // GET for deleting kit
 router.get("/kit/:id/delete", kitController.kit_delete_get);
 // POST for deleting kit

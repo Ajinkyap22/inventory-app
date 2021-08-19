@@ -90,9 +90,9 @@ exports.kit_create_post = [
 
     // If file, set name
     if (req.file && errors.isEmpty()) {
-      team.fileName = req.file.filename;
+      kit.fileName = req.file.filename;
     } else if (req.body.fileName) {
-      team.fileName = req.body.fileName;
+      kit.fileName = req.body.fileName;
     }
 
     if (!errors.isEmpty()) {
@@ -117,11 +117,27 @@ exports.kit_create_post = [
 ];
 
 // Display kit delete form on GET.
-exports.kit_delete_get = function (req, res, next) {};
+exports.kit_delete_get = function (req, res, next) {
+  Kit.findById(req.params.id).exec((err, kit) => {
+    if (err) return next(err);
+
+    if (kit === null) res.redirect("/store/kits");
+
+    res.render("kit_delete", { title: "Delete Kit", kit });
+  });
+};
 
 // Handle kit delete on POST.
-exports.kit_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: kit delete POST");
+exports.kit_delete_post = function (req, res, next) {
+  Kit.findByIdAndRemove(req.params.id).exec((err, kit) => {
+    if (err) return next(err);
+
+    Kit.findByIdAndRemove(req.body.kitid, function deleteKit(err) {
+      if (err) return next(err);
+
+      res.redirect("/store/kits");
+    });
+  });
 };
 
 // Display kit update form on GET.

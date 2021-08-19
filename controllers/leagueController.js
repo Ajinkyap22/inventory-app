@@ -146,11 +146,74 @@ exports.league_delete_post = function (req, res, next) {
 };
 
 // Display league update form on GET.
-exports.league_update_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: League update GET");
+exports.league_update_get = function (req, res, next) {
+  League.findById(req.params.id, (err, league) => {
+    if (err) return next(err);
+
+    if (league === null) {
+      const error = new Error("League not found");
+      error.status = 404;
+      return next(error);
+    }
+
+    res.render("league_form", { title: "Update League", league });
+  });
 };
 
 // Handle league update on POST.
-exports.league_update_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: League update POST");
-};
+exports.league_update_post = [
+  // Validate and sanitize
+  body("name", "Name cannot be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .isAlphanumeric()
+    .withMessage("Name must be alphanumeric"),
+
+  body("description", "Description cannot be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  // process request
+  (req, res, next) => {
+    // extract errors
+    const errors = validationResult(req.body);
+
+    // create object
+    const league = new League({
+      name: req.body.name,
+      description: req.body.description,
+      _id: req.params.id,
+    });
+
+    // If file, set name
+    if (req.file && errors.isEmpty()) {
+      league.fileName = req.file.filename;
+    } else if (req.body.fileName) {
+      league.fileName = req.body.fileName;
+    }
+
+    // render again if errors
+    if (!errors.isEmpty()) {
+      res.render("league_form", {
+        title: "Update League",
+        league,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // save league
+      League.findByIdAndUpdate(
+        req.params.id,
+        league,
+        {},
+        function (err, theleague) {
+          if (err) return next(err);
+
+          res.redirect(theleague.url);
+        }
+      );
+    }
+  },
+];
