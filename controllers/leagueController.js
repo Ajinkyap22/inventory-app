@@ -96,13 +96,53 @@ exports.league_create_post = [
 ];
 
 // Display league delete form on GET.
-exports.league_delete_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: League delete GET");
+exports.league_delete_get = function (req, res, next) {
+  async.parallel(
+    {
+      league: (callback) => League.findById(req.params.id).exec(callback),
+      teams: (callback) => Team.find({ league: req.params.id }).exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+
+      if (results.league == null) res.redirect("/store/leagues");
+
+      res.render("league_delete", {
+        title: "Delete League",
+        league: results.league,
+        teams: results.teams,
+      });
+    }
+  );
 };
 
 // Handle league delete on POST.
-exports.league_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: League delete POST");
+exports.league_delete_post = function (req, res, next) {
+  async.parallel(
+    {
+      league: (callback) => League.findById(req.body.leagueid).exec(callback),
+      teams: (callback) =>
+        Team.find({ league: req.body.leagueid }).exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+
+      if (results.teams.length > 0) {
+        res.render("league_delete", {
+          title: "Delete League",
+          league: results.league,
+          teams: results.teams,
+        });
+        return;
+      } else {
+        League.findByIdAndRemove(req.body.leagueid, function deleteLeague(err) {
+          if (err) return next(err);
+
+          res.redirect("/store/leagues");
+        });
+      }
+    }
+  );
 };
 
 // Display league update form on GET.

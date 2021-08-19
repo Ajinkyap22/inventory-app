@@ -25,6 +25,13 @@
           <li class="list-style-type-none">There are no Teams in this league.</li>
           <% } %>
         </ul>
+
+        <p>
+          <a href="<%= `${league.url}/update` %>" class="link-primary fw-bold text-decoration-none">Update League</a>
+        </p>
+        <p>
+          <a href="<%= `${league.url}/delete` %>" class="link-danger fw-bold text-decoration-none">Delete League</a>
+        </p>
       </main>
 
       <footer><%- include('./partials/footer') -%></footer>

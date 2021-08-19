@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<html>
+  <head>
+    <%- include('./partials/head') -%>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header><%- include('./partials/header') -%></header>
+
+      <main class="main">
+        <h1><%= title %> : <%= league.name %></h1>
+        <p><%= league.description %></p>
+
+        <% if(teams.length) { %>
+        <p class="fw-bold">
+          Delete the following Teams & the Kits associated with them before
+          deleting the league.
+        </p>
+
+        <ul>
+          <% teams.forEach(team => { %>
+          <li class="list-style-type-none">
+            <a href="<%= team.url %>" class="link-primary text-decoration-none"
+              ><%= team.name %></a
+            >
+            <p><%= team.description %></p>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <form method="POST" action="">
+          <p class="fw-bold">Are you sure you want to delete this league?</p>
+
+          <input
+            type="hidden"
+            class="form-control"
+            id="leagueid"
+            name="leagueid"
+            required
+            value="<%= league._id %>"
+          />
+
+          <button class="btn btn-danger">Delete</button>
+          <a
+            href="/store/leagues"
+            class="link-secondary px-3 text-decoration-none"
+            >Cancel</a
+          >
+        </form>
+        <% } %>
+      </main>
+
+      <footer><%- include('./partials/footer') -%></footer>
+    </div>
+  </body>
+</html>

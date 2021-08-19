@@ -102,13 +102,52 @@ exports.team_create_post = [
 ];
 
 // Display team delete form on GET.
-exports.team_delete_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: team delete GET");
+exports.team_delete_get = function (req, res, next) {
+  async.parallel(
+    {
+      team: (callback) => Team.findById(req.params.id).exec(callback),
+      kits: (callback) => Kit.find({ team: req.params.id }).exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+
+      if (results.team == null) res.redirect("/store/teams");
+
+      res.render("team_delete", {
+        title: "Delete team",
+        team: results.team,
+        kits: results.kits,
+      });
+    }
+  );
 };
 
 // Handle team delete on POST.
-exports.team_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: team delete POST");
+exports.team_delete_post = function (req, res, next) {
+  async.parallel(
+    {
+      team: (callback) => Team.findById(req.body.teamid).exec(callback),
+      kits: (callback) => Kit.find({ team: req.body.teamid }).exec(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+
+      if (results.kits.length > 0) {
+        res.render("team_delete", {
+          title: "Delete Team",
+          team: results.team,
+          kits: results.kits,
+        });
+        return;
+      } else {
+        Team.findByIdAndRemove(req.body.teamid, function deleteteam(err) {
+          if (err) return next(err);
+
+          res.redirect("/store/teams");
+        });
+      }
+    }
+  );
 };
 
 // Display team update form on GET.

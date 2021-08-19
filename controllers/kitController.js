@@ -117,9 +117,7 @@ exports.kit_create_post = [
 ];
 
 // Display kit delete form on GET.
-exports.kit_delete_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: kit delete GET");
-};
+exports.kit_delete_get = function (req, res, next) {};
 
 // Handle kit delete on POST.
 exports.kit_delete_post = function (req, res) {

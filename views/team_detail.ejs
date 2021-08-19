@@ -30,6 +30,21 @@
           </li>
           <% }) %>
         </ul>
+
+        <p>
+          <a
+            href="<%= `${team.url}/update` %>"
+            class="link-primary fw-bold text-decoration-none"
+            >Update Team</a
+          >
+        </p>
+        <p>
+          <a
+            href="<%= `${team.url}/delete` %>"
+            class="link-danger fw-bold text-decoration-none"
+            >Delete Team</a
+          >
+        </p>
       </main>
 
       <footer><%- include('./partials/footer') -%></footer>
