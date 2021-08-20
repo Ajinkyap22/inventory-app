@@ -8,6 +8,7 @@ const KitSchema = new Schema({
   price: { type: Number, required: true },
   stock: { type: Number, required: true },
   team: { type: Schema.Types.ObjectId, required: true, ref: "Team" },
+  fileName: { type: String },
 });
 
 // Virtual for url

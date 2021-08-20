@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const LeagueSchema = new Schema({
   name: { type: String, required: true, maxLength: 20 },
   description: { type: String, required: true, maxLength: 200 },
+  fileName: { type: String },
 });
 
 // Virtual for url

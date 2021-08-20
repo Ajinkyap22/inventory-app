@@ -6,6 +6,7 @@ const TeamSchema = new Schema({
   name: { type: String, required: true, maxLength: 30 },
   description: { type: String, required: true, maxLength: 200 },
   league: { type: Schema.Types.ObjectId, required: true, ref: "League" },
+  fileName: { type: String },
 });
 
 // Virtual for url
