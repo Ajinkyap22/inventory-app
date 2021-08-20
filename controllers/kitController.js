@@ -141,11 +141,105 @@ exports.kit_delete_post = function (req, res, next) {
 };
 
 // Display kit update form on GET.
-exports.kit_update_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: kit update GET");
+exports.kit_update_get = function (req, res, next) {
+  async.parallel(
+    {
+      kit: (callback) => Kit.findById(req.params.id).exec(callback),
+      teams: (callback) => Team.find(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+
+      if (results.kit === null) {
+        const error = new Error("Kit not found");
+        error.status = 404;
+        return next(err);
+      }
+
+      res.render("kit_form", {
+        title: "Update Kit",
+        kit: results.kit,
+        teams: results.teams,
+      });
+    }
+  );
 };
 
 // Handle kit update on POST.
-exports.kit_update_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: kit update POST");
-};
+exports.kit_update_post = [
+  // validate and sanitize
+  body("name", "Name cannot be empty").trim().isLength({ min: 3 }).escape(),
+
+  body("description", "Description cannot be empty")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+
+  body("price", "Price cannot be empty")
+    .trim()
+    .isFloat({ min: 1, max: 1000 })
+    .escape(),
+
+  body("stock", "Stock cannot be empty")
+    .trim()
+    .isInt({ min: 1, max: 100 })
+    .escape(),
+
+  body("team", "Team cannot be empty").trim().isLength({ min: 1 }).escape(),
+
+  // process request
+  (req, res, next) => {
+    // extract errors
+    const errors = validationResult(req.body);
+
+    // create new kit object
+    const kit = new Kit({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      stock: req.body.stock,
+      team: req.body.team,
+      _id: req.params.id,
+    });
+
+    // if file set file name
+    if (req.file && errors.isEmpty()) {
+      kit.fileName = req.file.filename;
+    } else {
+      kit.filename = req.body.fileName;
+    }
+
+    // re-render if errors
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          kit: (callback) => Kit.findById(req.params.id).exec(callback),
+          teams: (callback) => Team.find(callback),
+        },
+        (err, results) => {
+          if (err) return next(err);
+
+          if (results.kit === null) {
+            const error = new Error("Kit not found");
+            error.status = 404;
+            return next(err);
+          }
+
+          res.render("kit_form", {
+            title: "Update kit",
+            kit,
+            teams: results.teams,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    } else {
+      Kit.findByIdAndUpdate(req.params.id, kit, {}, function (err, thekit) {
+        if (err) return next(err);
+
+        res.redirect(thekit.url);
+      });
+    }
+  },
+];

@@ -31,16 +31,18 @@
             />
           </div>
 
+          <!-- prettier-ignore -->
           <div class="form-group pb-3">
             <label for="description" class="fw-bold py-2">Description :</label>
             <textarea
               type="textarea"
               name="description"
               placeholder="Information about the kit"
-              value="<%= typeof kit == 'undefined' ? '' : kit.description %>"
               class="form-control"
               required
-            ></textarea>
+            >
+            <%= typeof kit == 'undefined' ? '' : kit.description %></textarea
+            >
           </div>
 
           <div class="form-group pb-3">
@@ -98,13 +100,7 @@
 
           <div class="form-group pb-3">
             <label for="kitPic" class="fw-bold py-2">Picture :</label>
-            <input
-              type="file"
-              name="kitPic"
-              class="form-control"
-              value="<%= typeof kit !== 'undefined' ? kit.fileName : ''  %>"
-              required
-            />
+            <input type="file" name="kitPic" class="form-control" required />
           </div>
 
           <button class="btn btn-primary">Create</button>

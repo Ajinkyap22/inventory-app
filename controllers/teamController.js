@@ -151,11 +151,93 @@ exports.team_delete_post = function (req, res, next) {
 };
 
 // Display team update form on GET.
-exports.team_update_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: team update GET");
+exports.team_update_get = function (req, res, next) {
+  async.parallel(
+    {
+      team: (callback) => Team.findById(req.params.id).exec(callback),
+      leagues: (callback) => League.find(callback),
+    },
+    (err, results) => {
+      if (err) return next(err);
+
+      if (results.team === null) {
+        const error = new Error("Team not found");
+        error.status = 404;
+        return next(err);
+      }
+
+      res.render("team_form", {
+        title: "Update Team",
+        team: results.team,
+        leagues: results.leagues,
+      });
+    }
+  );
 };
 
 // Handle team update on POST.
-exports.team_update_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: team update POST");
-};
+exports.team_update_post = [
+  // validate and sanitize
+  body("name", "Name cannot be empty").trim().isLength({ min: 3 }).escape(),
+
+  body("description", "Description cannot be empty")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+
+  body("league", "League cannot be empty").trim().isLength({ min: 1 }).escape(),
+
+  // process request
+  (req, res, next) => {
+    // extract errors
+    const errors = validationResult(req.body);
+
+    // create new team object
+    const team = new Team({
+      name: req.body.name,
+      description: req.body.description,
+      league: req.body.league,
+      _id: req.params.id,
+    });
+
+    // if file set file name
+    if (req.file && errors.isEmpty()) {
+      team.fileName = req.file.filename;
+    } else {
+      team.filename = req.body.fileName;
+    }
+
+    // re-render if errors
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          team: (callback) => Team.findById(req.params.id).exec(callback),
+          leagues: (callback) => League.find(callback),
+        },
+        (err, results) => {
+          if (err) return next(err);
+
+          if (results.team === null) {
+            const error = new Error("Team not found");
+            error.status = 404;
+            return next(err);
+          }
+
+          res.render("team_form", {
+            title: "Update Team",
+            team,
+            leagues: results.leagues,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    } else {
+      Team.findByIdAndUpdate(req.params.id, team, {}, function (err, theteam) {
+        if (err) return next(err);
+
+        res.redirect(theteam.url);
+      });
+    }
+  },
+];

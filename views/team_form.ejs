@@ -31,16 +31,16 @@
             />
           </div>
 
+          <!-- prettier-ignore -->
           <div class="form-group pb-3">
             <label for="description" class="fw-bold py-2">Description :</label>
             <textarea
               type="textarea"
               name="description"
               placeholder="Information about the team"
-              value="<%= typeof team == 'undefined' ? '' : team.description %>"
               class="form-control"
               required
-            ></textarea>
+            ><%= typeof team == 'undefined' ? '' : team.description %></textarea>
           </div>
 
           <div class="form-group pb-3">
@@ -74,13 +74,7 @@
 
           <div class="form-group pb-3">
             <label for="teamLogo" class="fw-bold py-2">Logo :</label>
-            <input
-              type="file"
-              name="teamLogo"
-              class="form-control"
-              value="<%= typeof team !== 'undefined' ? team.fileName : ''  %>"
-              required
-            />
+            <input type="file" name="teamLogo" class="form-control" required />
           </div>
 
           <button type="submit" class="btn btn-primary">Create</button>
