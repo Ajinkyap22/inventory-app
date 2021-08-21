@@ -170,6 +170,7 @@ exports.team_update_get = function (req, res, next) {
         title: "Update Team",
         team: results.team,
         leagues: results.leagues,
+        isUpdating: true,
       });
     }
   );
@@ -228,6 +229,7 @@ exports.team_update_post = [
             team,
             leagues: results.leagues,
             errors: errors.array(),
+            isUpdating: true,
           });
         }
       );

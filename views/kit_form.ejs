@@ -88,9 +88,9 @@
               
               <% teams.forEach((team) => { %>
                 <% if (typeof kit != 'undefined') { %>
-                  <% const selected = team._id.toString() === kit.team._id.toString() ? 'selected' : '' %>
-              <option value="<%= team._id %>" <%="selected" %>
-                ><%= team.name %>
+                  <% let selected = team._id.toString() === kit.team._id.toString() ? 'selected' : '' %>
+              <!-- prettier-ignore -->
+              <option value="<%= team._id %>" <%=selected%>><%= team.name %>
               </option>
               <% } else { %>
               <option value="<%= team._id %>"><%= team.name %></option>
@@ -103,7 +103,9 @@
             <input type="file" name="kitPic" class="form-control" required />
           </div>
 
-          <button class="btn btn-primary">Create</button>
+          <button class="btn btn-primary">
+            <%= typeof isUpdating !== 'undefined' ? 'Update' : 'Create' %>
+          </button>
           <a href="/store" class="link-secondary px-3 text-decoration-none"
             >Cancel</a
           >

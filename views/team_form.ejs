@@ -58,13 +58,15 @@
                 <% let textA = a.name.toUpperCase(); %>
                 <% let textB = b.name.toUpperCase(); %>
                 <% return (textA < textB) ? -1 : (textA > textB) ? 1 : 0; %>
-              <% }) %> 
+              <% }) %>
+
               
               <% leagues.forEach((league) => { %>
-                <% if (typeof team != 'undefined') { %>
-                  <% const selected = league._id.toString() === team.league._id.toString() ? 'selected' : '' %>
-              <option value="<%= league._id %>" <%="selected" %>
-                ><%= league.name %>
+                <% if (typeof team !== 'undefined') { %>
+                  <% let selected = (league._id.toString() === team.league._id.toString()) ? 'selected' : '' %>
+              <!-- prettier-ignore -->
+              <option value="<%= league._id %>" <%=selected%> >
+                <%= league.name %>
               </option>
               <% } else { %>
               <option value="<%= league._id %>"><%= league.name %></option>
@@ -77,7 +79,9 @@
             <input type="file" name="teamLogo" class="form-control" required />
           </div>
 
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary">
+            <%= typeof isUpdating !== 'undefined' ? 'Update' : 'Create' %>
+          </button>
           <a href="/store" class="link-secondary px-3 text-decoration-none"
             >Cancel</a
           >

@@ -83,7 +83,7 @@ function kitCreate(name, description, price, stock, team, cb) {
 }
 
 function createLeagues(cb) {
-  async.parallel(
+  async.series(
     [
       (callback) =>
         leagueCreate(
@@ -121,7 +121,7 @@ function createLeagues(cb) {
 }
 
 function createTeams(cb) {
-  async.parallel(
+  async.series(
     [
       (callback) =>
         teamCreate(

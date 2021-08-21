@@ -4,7 +4,7 @@ const Team = require("../models/team");
 const async = require("async");
 const { body, validationResult } = require("express-validator");
 
-exports.index = function (req, res) {
+exports.index = function (req, res, next) {
   async.parallel(
     {
       league_count: (callback) => League.countDocuments({}, callback),
@@ -30,17 +30,19 @@ exports.kit_list = function (req, res, next) {
 
 // Display detail page for a specific kit.
 exports.kit_detail = function (req, res, next) {
-  Kit.findById(req.params.id).exec((err, kit) => {
-    if (err) return next(err);
+  Kit.findById(req.params.id)
+    .populate("team")
+    .exec((err, kit) => {
+      if (err) return next(err);
 
-    if (kit === null) {
-      const error = new Error("Kit not found");
-      error.status = 404;
-      return next(error);
-    }
+      if (kit === null) {
+        const error = new Error("Kit not found");
+        error.status = 404;
+        return next(error);
+      }
 
-    res.render("kit_detail", { title: "Kit Detail", kit });
-  });
+      res.render("kit_detail", { title: "Kit Detail", kit });
+    });
 };
 
 // Display kit create form on GET.
@@ -55,12 +57,11 @@ exports.kit_create_get = function (req, res, next) {
 // Handle kit create on POST.
 exports.kit_create_post = [
   // validate & sanitize
-  body("name", "Name cannot be empty").trim().isLength({ min: 3 }).escape(),
+  body("name", "Name cannot be empty").trim().isLength({ min: 3 }),
 
   body("description", "Description cannot be empty")
     .trim()
-    .isLength({ min: 3 })
-    .escape(),
+    .isLength({ min: 3 }),
 
   body("price", "Price cannot be empty")
     .trim()
@@ -160,6 +161,7 @@ exports.kit_update_get = function (req, res, next) {
         title: "Update Kit",
         kit: results.kit,
         teams: results.teams,
+        isUpdating: true,
       });
     }
   );
@@ -168,12 +170,11 @@ exports.kit_update_get = function (req, res, next) {
 // Handle kit update on POST.
 exports.kit_update_post = [
   // validate and sanitize
-  body("name", "Name cannot be empty").trim().isLength({ min: 3 }).escape(),
+  body("name", "Name cannot be empty").trim().isLength({ min: 3 }),
 
   body("description", "Description cannot be empty")
     .trim()
-    .isLength({ min: 3 })
-    .escape(),
+    .isLength({ min: 3 }),
 
   body("price", "Price cannot be empty")
     .trim()
@@ -230,6 +231,7 @@ exports.kit_update_post = [
             kit,
             teams: results.teams,
             errors: errors.array(),
+            isUpdating: true,
           });
         }
       );

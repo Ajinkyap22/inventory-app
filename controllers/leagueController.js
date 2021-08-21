@@ -156,7 +156,11 @@ exports.league_update_get = function (req, res, next) {
       return next(error);
     }
 
-    res.render("league_form", { title: "Update League", league });
+    res.render("league_form", {
+      title: "Update League",
+      league,
+      isUpdating: true,
+    });
   });
 };
 
@@ -200,6 +204,7 @@ exports.league_update_post = [
         title: "Update League",
         league,
         errors: errors.array(),
+        isUpdating: true,
       });
       return;
     } else {
