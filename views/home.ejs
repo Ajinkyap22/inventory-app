@@ -16,7 +16,7 @@
         <% } else { %>
         <h2 class="pb-4">Leagues</h2>
 
-        <div class="row">
+        <div class="row dist">
           <% data.leagues.forEach((league, i) => { %>
           <!-- prettier-ignore -->
           <% if(i > 4) return %>
@@ -29,7 +29,7 @@
                 class="logos"
               />
 
-              <label class="lead fw-bold pt-3"><%=league.name%></label>
+              <label class="fw-bold pt-3"><%=league.name%></label>
             </div>
           </div>
           <% }) %>
@@ -40,7 +40,7 @@
 
         <h2 class="pb-4">Teams</h2>
 
-        <div class="row">
+        <div class="row dist">
           <% data.teams.forEach((team, i) => { %>
           <!-- prettier-ignore -->
           <% if(i > 4) return %>
@@ -52,8 +52,7 @@
                 alt="<%= team.name %> logo"
                 class="logos"
               />
-
-              <label class="lead fw-bold pt-3"><%=team.name%></label>
+              <label class="fw-bold pt-3"><%=team.name%></label>
             </div>
           </div>
           <% }) %>
@@ -62,25 +61,25 @@
 
         <h2 class="pb-4">Kits</h2>
 
-        <div class="row pb-5">
+        <div class="row">
           <% data.kits.forEach((kit, i) => { %>
           <!-- prettier-ignore -->
           <% if(i > 4) return %>
 
           <div class="col-sm w-25">
-            <div class="h-75">
+            <div class="h-50">
               <img
                 src="/uploads/<%=kit.fileName%>"
                 alt="<%= kit.name %> logo"
                 class="logos"
               />
 
-              <label class="lead fw-bold pt-3"><%=kit.name%></label>
+              <label class="fw-bold"><%=kit.name%></label>
             </div>
           </div>
           <% }) %>
         </div>
-        <a href="/store/kits" class="btn btn-primary my-5">See All Kits</a>
+        <a href="/store/kits" class="btn btn-primary">See All Kits</a>
         <% } %>
       </main>
 
