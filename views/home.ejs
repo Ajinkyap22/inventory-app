@@ -8,29 +8,79 @@
       <header><%- include('./partials/header') -%></header>
 
       <main class="main text-center">
-        <!-- Row for max 5 leagues with name & logo with more opion -->
-        <!-- Row for max 5 teams with name & logo with more opion -->
-        <!-- Row for max 5 kits with kit & pic with more opion  -->
-
         <h1>FootyStore Inventory</h1>
-        <p>Manage the store inventory with just a few clicks!</p>
+        <p class="pb-3">Manage the store inventory with just a few clicks!</p>
 
         <% if(error) { %>
         <p>Error getting data from the server.</p>
         <% } else { %>
-        <p>The inventroy has following data:</p>
+        <h2 class="pb-4">Leagues</h2>
 
-        <ul>
-          <li class="list-style-type-none">
-            <strong>Leagues :</strong> <%= data.league_count %>
-          </li>
-          <li class="list-style-type-none">
-            <strong>Teams :</strong> <%= data.team_count %>
-          </li>
-          <li class="list-style-type-none">
-            <strong>Kits :</strong> <%= data.kit_count %>
-          </li>
-        </ul>
+        <div class="row">
+          <% data.leagues.forEach((league, i) => { %>
+          <!-- prettier-ignore -->
+          <% if(i > 4) return %>
+
+          <div class="col-sm w-25">
+            <div class="h-50">
+              <img
+                src="/uploads/<%=league.fileName%>"
+                alt="<%= league.name %> logo"
+                class="logos"
+              />
+
+              <label class="lead fw-bold pt-3"><%=league.name%></label>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <a href="/store/leagues" class="btn btn-primary my-5"
+          >See All Leagues</a
+        >
+
+        <h2 class="pb-4">Teams</h2>
+
+        <div class="row">
+          <% data.teams.forEach((team, i) => { %>
+          <!-- prettier-ignore -->
+          <% if(i > 4) return %>
+
+          <div class="col-sm w-25">
+            <div class="h-50">
+              <img
+                src="/uploads/<%=team.fileName%>"
+                alt="<%= team.name %> logo"
+                class="logos"
+              />
+
+              <label class="lead fw-bold pt-3"><%=team.name%></label>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <a href="/store/teams" class="btn btn-primary my-5">See All Teams</a>
+
+        <h2 class="pb-4">Kits</h2>
+
+        <div class="row pb-5">
+          <% data.kits.forEach((kit, i) => { %>
+          <!-- prettier-ignore -->
+          <% if(i > 4) return %>
+
+          <div class="col-sm w-25">
+            <div class="h-75">
+              <img
+                src="/uploads/<%=kit.fileName%>"
+                alt="<%= kit.name %> logo"
+                class="logos"
+              />
+
+              <label class="lead fw-bold pt-3"><%=kit.name%></label>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <a href="/store/kits" class="btn btn-primary my-5">See All Kits</a>
         <% } %>
       </main>
 

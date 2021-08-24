@@ -10,6 +10,9 @@ exports.index = function (req, res, next) {
       league_count: (callback) => League.countDocuments({}, callback),
       team_count: (callback) => Team.countDocuments({}, callback),
       kit_count: (callback) => Kit.countDocuments({}, callback),
+      leagues: (callback) => League.find(callback),
+      teams: (callback) => Team.find(callback),
+      kits: (callback) => Kit.find(callback),
     },
     (err, results) => {
       if (err) return next(err);

@@ -12,3 +12,13 @@ body {
 .list-style-type-none {
   list-style-type: none;
 }
+
+.logos {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+
+.row {
+  max-height: 15em;
+}
