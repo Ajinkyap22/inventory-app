@@ -23,3 +23,7 @@ body {
 .col-sm {
   max-height: 12rem;
 }
+
+.col-sm {
+  flex: 0 1 auto !important;
+}

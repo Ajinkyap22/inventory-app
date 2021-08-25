@@ -4,53 +4,57 @@
     <%- include('./partials/head') -%>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header') -%></header>
 
-      <main class="main">
-        <h1><%= team.name %></h1>
-        <p><%= team.description %></p>
+      <main class="main mx-3">
+        <h1 class="pb-1"><%= team.name %></h1>
+        <p class="pb-1"><%= team.description %></p>
 
-        <img
-          src="/uploads/<%=team.fileName%>"
-          alt="Team Logo"
-          class="img-thumbnail w-25"
-        />
-
-        <p>
-          <strong>League : </strong
-          ><a
-            href="<%= team.league.url %>"
-            class="link-primary text-decoration-none"
-            ><%= team.league.name %></a
-          >
-        </p>
-
-        <p><strong>Team Kits :</strong></p>
-        <ul>
-          <% kits.forEach(kit => { %>
-          <li>
-            <a href="<%= kit.url %>" class="link-primary text-decoration-none"
-              ><%= kit.name %></a
-            >
-          </li>
-          <% }) %>
-        </ul>
-
-        <p>
+        <div class="pb-3">
           <a
             href="<%= `${team.url}/update` %>"
-            class="link-primary fw-bold text-decoration-none"
+            class="btn btn-primary fw-bold mx-1"
             >Update Team</a
           >
-        </p>
-        <p>
+
           <a
             href="<%= `${team.url}/delete` %>"
-            class="link-danger fw-bold text-decoration-none"
+            class="btn btn-danger fw-bold mx-1"
             >Delete Team</a
           >
-        </p>
+        </div>
+
+        <div class="w-25 m-auto d-flex justify-content-center">
+          <img src="/uploads/<%=team.fileName%>" alt="team Logo" class="w-75" />
+        </div>
+
+        <p class="pt-3"><strong>Kits :</strong></p>
+
+        <div class="row mx-0 text-center">
+          <!-- prettier-ignore -->
+          <% if(kits.length) { %>
+            <% kits.forEach(kit => { %>
+
+          <div class="col-sm flex-shrink-1 w-25">
+            <div class="h-75">
+              <img
+                src="/uploads/<%=kit.fileName%>"
+                alt="<%=kit.name%> logo"
+                class="logos"
+              />
+            </div>
+            <label class="pt-3 fw-bold">
+              <a href="<%=kit.url%>" class="text-decoration-none link-primary"
+                ><%= kit.name %></a
+              >
+            </label>
+          </div>
+
+          <% }) } else { %>
+          <p>There are no Kits for this team.</p>
+          <% } %>
+        </div>
       </main>
 
       <footer><%- include('./partials/footer') -%></footer>

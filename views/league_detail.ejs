@@ -4,36 +4,61 @@
     <%- include('./partials/head') -%>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header') -%></header>
 
-      <main class="main">
-        <h1><%= league.name %></h1>
-        <p><%= league.description %></p>
-        
-        <img src="/uploads/<%=league.fileName%>" alt="League Logo" class="img-thumbnail w-25">
+      <main class="main px-3">
+        <h1 class="pb-1"><%= league.name %></h1>
+        <p class="pb-1"><%= league.description %></p>
 
-        <p><strong>Teams :</strong></p>
-        <ul>
+        <div class="pb-3">
+          <a
+            href="<%= `${league.url}/update` %>"
+            class="btn btn-primary fw-bold mx-1"
+            >Update League</a
+          >
+
+          <a
+            href="<%= `${league.url}/delete` %>"
+            class="btn btn-danger fw-bold mx-1"
+            >Delete League</a
+          >
+        </div>
+
+        <div class="w-25 m-auto d-flex justify-content-center">
+          <img
+            src="/uploads/<%=league.fileName%>"
+            alt="League Logo"
+            class="img-thumbnail w-75"
+          />
+        </div>
+
+        <p class="pt-3"><strong>Teams :</strong></p>
+
+        <div class="row mx-0 text-center">
           <!-- prettier-ignore -->
           <% if(teams.length) { %>
             <% teams.forEach(team => { %>
-          <li class="list-style-type-none">
-            <a href="<%= team.url %>" class="link-primary text-decoration-none""
-              ><%= team.name %></a
-            >
-          </li>
-          <% }) } else { %>
-          <li class="list-style-type-none">There are no Teams in this league.</li>
-          <% } %>
-        </ul>
 
-        <p>
-          <a href="<%= `${league.url}/update` %>" class="link-primary fw-bold text-decoration-none">Update League</a>
-        </p>
-        <p>
-          <a href="<%= `${league.url}/delete` %>" class="link-danger fw-bold text-decoration-none">Delete League</a>
-        </p>
+          <div class="col-sm flex-shrink-1 w-25">
+            <div class="h-50">
+              <img
+                src="/uploads/<%=team.fileName%>"
+                alt="<%=team.name%> logo"
+                class="logos"
+              />
+            </div>
+            <label class="pt-3 fw-bold">
+              <a href="<%=team.url%>" class="text-decoration-none link-primary"
+                ><%= team.name %></a
+              >
+            </label>
+          </div>
+
+          <% }) } else { %>
+          <p>There are no Teams in this league.</p>
+          <% } %>
+        </div>
       </main>
 
       <footer><%- include('./partials/footer') -%></footer>
