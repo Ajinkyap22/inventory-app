@@ -5,30 +5,41 @@
     <%- include('./partials/head') -%>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header'); -%></header>
 
-      <main class="main">
-        <!-- All kits in grid format with name & pic -->
+      <main class="main text-center">
+        <h1 class="py-3"><%= title %></h1>
 
-        <h1><%= title %></h1>
-
-        <ul>
+        <div class="row mx-0">
           <!-- prettier-ignore -->
           <% if(kits.length) { %>
             <% kits.forEach(kit => { %>
-          <li class="list-style-type-none">
-            <a href="<%= kit.url %>" class="link-primary text-decoration-none""
-              ><%= kit.name %></a
+          <div class="col-sm w-25">
+            <div class="h-75">
+              <img
+                src="/uploads/<%=kit.fileName%>"
+                alt="<%=kit.name%> logo"
+                class="logos"
+              />
+            </div>
+            <label class="pt-3"
+              ><a
+                href="<%=kit.url%>"
+                class="fw-bold text-decoration-none link-primary"
+                ><%=kit.name%></a
+              ></label
             >
-          </li>
+          </div>
           <% }) } else { %>
-          <li>There are no kits.</li>
+          <p>There are no kits.</p>
           <% } %>
-        </ul>
+        </div>
       </main>
 
-      <footer><%- include('./partials/footer'); -%></footer>
+      <footer class="position-absolute left-0 bottom-0 w-100">
+        <%- include('./partials/footer'); -%>
+      </footer>
     </div>
   </body>
 </html>

@@ -5,29 +5,41 @@
     <%- include('./partials/head') -%>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header'); -%></header>
 
-      <main class="main">
-        <!-- All league in grid format with name & logo -->
-        <h1><%= title %></h1>
+      <main class="main text-center">
+        <h1 class="py-3"><%= title %></h1>
 
-        <ul>
+        <div class="row mx-0">
           <!-- prettier-ignore -->
           <% if(leagues.length) { %>
             <% leagues.forEach(league => { %>
-          <li class="list-style-type-none">
-            <a href="<%= league.url %>" class="link-primary text-decoration-none""
-              ><%= league.name %></a
+          <div class="col-sm w-25">
+            <div class="h-50">
+              <img
+                src="/uploads/<%=league.fileName%>"
+                alt="<%=league.name%> logo"
+                class="logos"
+              />
+            </div>
+            <label class="pt-3"
+              ><a
+                href="<%=league.url%>"
+                class="fw-bold text-decoration-none link-primary"
+                ><%=league.name%></a
+              ></label
             >
-          </li>
+          </div>
           <% }) } else { %>
-          <li>There are no leagues.</li>
+          <p>There are no leagues.</p>
           <% } %>
-        </ul>
+        </div>
       </main>
 
-      <footer><%- include('./partials/footer'); -%></footer>
+      <footer class="position-absolute left-0 bottom-0 w-100">
+        <%- include('./partials/footer'); -%>
+      </footer>
     </div>
   </body>
 </html>
