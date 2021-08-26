@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="en"></html>
-<html>
-  <head>
-    <%- include('./partials/head') -%>
-  </head>
+<html lang="en">
+  <%- include('./partials/head') -%>
   <body>
     <div class="container-fluid p-0">
-      <header><%- include('./partials/header'); -%></header>
+      <header><%- include('./partials/header') -%></header>
 
       <main class="main text-center">
         <h1 class="py-3"><%= title %></h1>
 
-        <div class="row mx-0">
+        <div class="row mx-0 gy-3">
           <!-- prettier-ignore -->
           <% if(leagues.length) { %>
             <% leagues.forEach(league => { %>

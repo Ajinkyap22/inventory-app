@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('./partials/head') -%>
-  </head>
+  <%- include('./partials/head') -%>
   <body>
     <div class="container-fluid p-0">
       <header><%- include('./partials/header') -%></header>
@@ -14,12 +12,12 @@
         <% if(error) { %>
         <p>Error getting data from the server.</p>
         <% } else { %>
-        <h2 class="pb-4">Leagues</h2>
+        <h2 class="pb-3">Leagues</h2>
 
-        <div class="row mx-0 dist">
+        <div class="row mx-0 dist align-items-end align-items-sm-stretch">
           <% data.leagues.forEach((league, i) => { %>
           <!-- prettier-ignore -->
-          <% if(i > 4) return %>
+          <% if(i > 3) return %>
 
           <div class="col-sm w-25">
             <div class="h-50">
@@ -40,16 +38,17 @@
           </div>
           <% }) %>
         </div>
+
         <a href="/store/leagues" class="btn btn-primary my-5"
           >See All Leagues</a
         >
 
-        <h2 class="pb-4">Teams</h2>
+        <h2 class="pb-3">Teams</h2>
 
         <div class="row mx-0 dist">
           <% data.teams.forEach((team, i) => { %>
           <!-- prettier-ignore -->
-          <% if(i > 4) return %>
+          <% if(i > 3) return %>
 
           <div class="col-sm w-25">
             <div class="h-50">
@@ -69,14 +68,15 @@
           </div>
           <% }) %>
         </div>
+
         <a href="/store/teams" class="btn btn-primary my-5">See All Teams</a>
 
-        <h2 class="pb-4">Kits</h2>
+        <h2 class="pb-3">Kits</h2>
 
         <div class="row mx-0">
           <% data.kits.forEach((kit, i) => { %>
           <!-- prettier-ignore -->
-          <% if(i > 4) return %>
+          <% if(i > 3) return %>
 
           <div class="col-sm w-25">
             <div class="h-50">
@@ -97,7 +97,8 @@
           </div>
           <% }) %>
         </div>
-        <a href="/store/kits" class="btn btn-primary">See All Kits</a>
+
+        <a href="/store/kits" class="btn btn-primary mt-5">See All Kits</a>
         <% } %>
       </main>
 

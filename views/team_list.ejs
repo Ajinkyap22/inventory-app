@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"></html>
-<html>
+<html lang="en">
   <head>
     <%- include('./partials/head') -%>
   </head>
@@ -11,7 +10,7 @@
       <main class="main text-center">
         <h1 class="py-3"><%= title %></h1>
 
-        <div class="row mx-0">
+        <div class="row mx-0 gy-3 align-items-baseline align-items-sm-stretch">
           <!-- prettier-ignore -->
           <% if(teams.length) { %>
             <% teams.forEach(team => { %>

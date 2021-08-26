@@ -1,36 +1,50 @@
 <!DOCTYPE html>
-<html lang="en"></html>
-<html>
-  <head>
-    <%- include('./partials/head') -%>
-  </head>
+<html lang="en">
+  <%- include('./partials/head') -%>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header') -%></header>
 
-      <main class="main">
+      <main class="main mx-3">
         <h1><%= title %> : <%= league.name %></h1>
-        <p><%= league.description %></p>
+        <p class="pb-3"><%= league.description %></p>
 
         <% if(teams.length) { %>
-        <p class="fw-bold">
+        <p class="fw-bold pb-3">
           Delete the following Teams & the Kits associated with them before
           deleting the league.
         </p>
 
-        <ul>
+        <div class="row mx-0 text-center">
           <% teams.forEach(team => { %>
-          <li class="list-style-type-none">
-            <a href="<%= team.url %>" class="link-primary text-decoration-none"
-              ><%= team.name %></a
-            >
-            <p><%= team.description %></p>
-          </li>
+          <div class="col-sm flex-shrink-1 w-25">
+            <div class="h-50">
+              <img
+                src="/uploads/<%=team.fileName%>"
+                alt="<%=team.name%> logo"
+                class="logos"
+              />
+            </div>
+            <label class="pt-3 fw-bold">
+              <a href="<%=team.url%>" class="text-decoration-none link-primary"
+                ><%= team.name %></a
+              >
+            </label>
+          </div>
+
           <% }) %>
-        </ul>
+        </div>
         <% } else { %>
         <form method="POST" action="">
           <p class="fw-bold">Are you sure you want to delete this league?</p>
+
+          <div class="w-25 m-auto d-flex justify-content-center">
+            <img
+              src="/uploads/<%=league.fileName%>"
+              alt="League Logo"
+              class="img-thumbnail w-75"
+            />
+          </div>
 
           <input
             type="hidden"
@@ -51,7 +65,9 @@
         <% } %>
       </main>
 
-      <footer><%- include('./partials/footer') -%></footer>
+      <footer class="position-absolute left-0 bottom-0 w-100">
+        <%- include('./partials/footer') -%>
+      </footer>
     </div>
   </body>
 </html>
