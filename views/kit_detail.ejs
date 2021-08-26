@@ -5,42 +5,43 @@
     <%- include('./partials/head') -%>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header'); -%></header>
 
-      <main class="main">
+      <main class="main mx-3">
         <h1><%= kit.name %></h1>
         <p><%= kit.description %></p>
 
-        <img
-          src="/uploads/<%=kit.fileName%>"
-          alt="Kit Picture"
-          class="img-thumbnail w-25"
-        />
-        <%= console.log(kit.team.url) %>
-        <p>
-          <strong>Team : </strong
-          ><a
-            href="<%= kit.team.url %>"
-            class="link-primary text-decoration-none"
-            ><%= kit.team.name %></a
-          >
-        </p>
-
-        <p>
-          <a
-            href="<%= `${kit.url}/update` %>"
-            class="link-primary fw-bold text-decoration-none"
+        <div class="pb-3">
+          <a href="<%= `${kit.url}/update` %>" class="btn btn-primary mx-1"
             >Update Kit</a
           >
-        </p>
-        <p>
-          <a
-            href="<%= `${kit.url}/delete` %>"
-            class="link-danger fw-bold text-decoration-none"
+
+          <a href="<%= `${kit.url}/delete` %>" class="btn btn-danger mx-1"
             >Delete Kit</a
           >
-        </p>
+        </div>
+
+        <div class="w-25 m-auto d-flex justify-content-center">
+          <img src="/uploads/<%=kit.fileName%>" alt="team Logo" class="w-75" />
+        </div>
+
+        <div>
+          <strong>Team : </strong>
+          <div class="w-25 my-3">
+            <img
+              src="/uploads/<%=kit.team.fileName%>"
+              alt="team Logo"
+              class="w-25"
+            />
+          </div>
+
+          <a
+            href="<%= kit.team.url %>"
+            class="link-primary text-decoration-none fw-bold pt-3"
+            ><%= kit.team.name %></a
+          >
+        </div>
       </main>
 
       <footer><%- include('./partials/footer'); -%></footer>

@@ -4,10 +4,10 @@
     <%- include('./partials/head') -%>
   </head>
   <body>
-    <div class="container-fluid p-4">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header') -%></header>
 
-      <main class="main">
+      <main class="main mx-3">
         <h1><%= title %></h1>
 
         <form method="POST" action="" enctype="multipart/form-data">
@@ -49,12 +49,16 @@
             />
           </div>
 
-          <button class="btn btn-primary">
-            <%= typeof isUpdating !== 'undefined' ? 'Update' : 'Create' %>
-          </button>
-          <a href="/store" class="link-secondary px-3 text-decoration-none"
-            >Cancel</a
-          >
+          <div class="py-3 d-flex justify-content-start">
+            <button class="btn btn-primary">
+              <%= typeof isUpdating !== 'undefined' ? 'Update' : 'Create' %>
+            </button>
+            <a
+              href="/store"
+              class="link-secondary px-3 py-2 text-decoration-none"
+              >Cancel</a
+            >
+          </div>
         </form>
 
         <% if (typeof errors !== 'undefined') { %>
@@ -66,7 +70,9 @@
         <% } %>
       </main>
 
-      <footer><%- include('./partials/footer') -%></footer>
+      <footer class="position-absolute left-0 bottom-0 w-100">
+        <%- include('./partials/footer') -%>
+      </footer>
     </div>
   </body>
 </html>
