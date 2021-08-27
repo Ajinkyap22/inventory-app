@@ -37,3 +37,20 @@ body {
 .col-sm {
   flex: 0 1 auto !important;
 }
+
+footer {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .image {
+    width: 50% !important;
+  }
+
+  .subimage {
+    width: 50% !important;
+  }
+}

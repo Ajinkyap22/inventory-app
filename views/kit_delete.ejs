@@ -9,12 +9,12 @@
         <h1><%= title %>: <%= kit.name %></h1>
         <p class="pb-3"><%= kit.description %></p>
 
-        <div class="w-25 m-auto d-flex justify-content-center">
-          <img src="/uploads/<%=kit.fileName%>" alt="team Logo" class="w-75" />
+        <div class="w-50 m-auto d-flex justify-content-center">
+          <img src="/uploads/<%=kit.fileName%>" alt="team Logo" class="w-50" />
         </div>
 
         <form method="POST" action="">
-          <p class="fw-bold">Are you sure you want to delete this kit?</p>
+          <p class="fw-bold pt-2">Are you sure you want to delete this kit?</p>
 
           <input
             type="hidden"

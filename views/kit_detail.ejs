@@ -2,40 +2,39 @@
 <html lang="en">
   <%- include('./partials/head') -%>
   <body>
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 h-100">
       <header><%- include('./partials/header'); -%></header>
 
-      <main class="main mx-3">
+      <main class="main mx-3 h-100">
         <h1><%= kit.name %></h1>
         <p><%= kit.description %></p>
 
         <div class="pb-3">
-          <a href="<%= `${kit.url}/update` %>" class="btn btn-primary mx-1"
+          <a href="<%= `${kit.url}/update` %>" class="btn btn-primary m-1"
             >Update Kit</a
           >
 
-          <a href="<%= `${kit.url}/delete` %>" class="btn btn-danger mx-1"
+          <a href="<%= `${kit.url}/delete` %>" class="btn btn-danger m-1"
             >Delete Kit</a
           >
         </div>
 
-        <div class="w-25 m-auto d-flex justify-content-center">
+        <div class="w-25 m-auto d-flex justify-content-center image">
           <img src="/uploads/<%=kit.fileName%>" alt="team Logo" class="w-75" />
         </div>
 
         <div>
           <strong>Team : </strong>
-          <div class="w-25 my-3">
+          <div class="w-25 my-3 subimage">
             <img
               src="/uploads/<%=kit.team.fileName%>"
               alt="team Logo"
-              class="w-25"
+              class="w-25 mx-3"
             />
           </div>
-
           <a
             href="<%= kit.team.url %>"
-            class="link-primary text-decoration-none fw-bold pt-3"
+            class="link-primary text-decoration-none fw-bold px-0 px-sm-3"
             ><%= kit.team.name %></a
           >
         </div>

@@ -11,13 +11,12 @@
 
         <% if(kits.length) { %>
         <p class="fw-bold pb-3">
-          Delete the following Kits & the Kits associated with them before
-          deleting the league.
+          Delete the following Kits before deleting the league.
         </p>
 
         <div class="row mx-0 text-center">
           <% kits.forEach(kit => { %>
-          <div class="col-sm flex-shrink-1 w-25">
+          <div class="col-sm w-50">
             <div class="h-50">
               <img
                 src="/uploads/<%=kit.fileName%>"
