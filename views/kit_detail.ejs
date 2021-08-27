@@ -2,10 +2,10 @@
 <html lang="en">
   <%- include('./partials/head') -%>
   <body>
-    <div class="container-fluid p-0 h-100">
+    <div class="container-fluid p-0">
       <header><%- include('./partials/header'); -%></header>
 
-      <main class="main mx-3 h-100">
+      <main class="main mx-3">
         <h1><%= kit.name %></h1>
         <p><%= kit.description %></p>
 
@@ -23,7 +23,7 @@
           <img src="/uploads/<%=kit.fileName%>" alt="team Logo" class="w-75" />
         </div>
 
-        <div>
+        <div class="pb-2">
           <strong>Team : </strong>
           <div class="w-25 my-3 subimage">
             <img

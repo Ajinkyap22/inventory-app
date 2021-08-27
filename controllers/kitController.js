@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Kit = require("../models/kit");
 const League = require("../models/league");
 const Team = require("../models/team");
@@ -133,6 +134,13 @@ exports.kit_delete_get = function (req, res, next) {
 
 // Handle kit delete on POST.
 exports.kit_delete_post = function (req, res, next) {
+  // check password
+  if (req.body.password !== process.env.PASSWORD) {
+    const error = new Error("Incorrect Password");
+    error.status = 401;
+    return next(error);
+  }
+
   Kit.findByIdAndRemove(req.params.id).exec((err, kit) => {
     if (err) return next(err);
 
@@ -193,6 +201,13 @@ exports.kit_update_post = [
 
   // process request
   (req, res, next) => {
+    // check password
+    if (req.body.password !== process.env.PASSWORD) {
+      const error = new Error("Incorrect Password");
+      error.status = 401;
+      return next(error);
+    }
+
     // extract errors
     const errors = validationResult(req.body);
 

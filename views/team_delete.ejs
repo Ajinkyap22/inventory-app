@@ -34,17 +34,13 @@
           <% }) %>
         </div>
         <% } else { %>
+        <p class="fw-bold">Please enter the password to confirm this action.</p>
+
+        <div class="w-25 m-auto d-flex justify-content-center">
+          <img src="/uploads/<%=team.fileName%>" alt="team Logo" class="w-75" />
+        </div>
+
         <form method="POST" action="">
-          <p class="fw-bold">Are you sure you want to delete this team?</p>
-
-          <div class="w-25 m-auto d-flex justify-content-center">
-            <img
-              src="/uploads/<%=team.fileName%>"
-              alt="team Logo"
-              class="w-75"
-            />
-          </div>
-
           <input
             type="hidden"
             class="form-control"
@@ -53,6 +49,17 @@
             required
             value="<%= team._id %>"
           />
+
+          <div class="form-group pb-3">
+            <label for="password" class="fw-bold py-2">Password :</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              required
+            />
+          </div>
 
           <button class="btn btn-danger">Delete</button>
           <a
@@ -64,9 +71,7 @@
         <% } %>
       </main>
 
-      <footer class="position-absolute left-0 bottom-0 w-100">
-        <%- include('./partials/footer') -%>
-      </footer>
+      <footer><%- include('./partials/footer') -%></footer>
     </div>
   </body>
 </html>

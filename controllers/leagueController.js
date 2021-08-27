@@ -1,3 +1,4 @@
+require("dotenv").config();
 const League = require("../models/league");
 const Team = require("../models/team");
 const { body, validationResult } = require("express-validator");
@@ -125,6 +126,12 @@ exports.league_delete_post = function (req, res, next) {
         Team.find({ league: req.body.leagueid }).exec(callback),
     },
     (err, results) => {
+      if (req.body.password !== process.env.PASSWORD) {
+        const error = new Error("Incorrect Password");
+        error.status = 401;
+        return next(error);
+      }
+
       if (err) return next(err);
 
       if (results.teams.length > 0) {
@@ -147,6 +154,7 @@ exports.league_delete_post = function (req, res, next) {
 
 // Display league update form on GET.
 exports.league_update_get = function (req, res, next) {
+  console.log(process.env.PASSWORD);
   League.findById(req.params.id, (err, league) => {
     if (err) return next(err);
 
@@ -181,6 +189,13 @@ exports.league_update_post = [
 
   // process request
   (req, res, next) => {
+    // check for password
+    if (req.body.password !== process.env.PASSWORD) {
+      const error = new Error("Incorrect Password");
+      error.status = 401;
+      return next(error);
+    }
+
     // extract errors
     const errors = validationResult(req.body);
 

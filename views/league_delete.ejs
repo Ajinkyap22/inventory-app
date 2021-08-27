@@ -35,17 +35,9 @@
           <% }) %>
         </div>
         <% } else { %>
+        <p class="fw-bold">Please enter the password to confirm this action.</p>
+
         <form method="POST" action="">
-          <p class="fw-bold">Are you sure you want to delete this league?</p>
-
-          <div class="w-25 m-auto d-flex justify-content-center">
-            <img
-              src="/uploads/<%=league.fileName%>"
-              alt="League Logo"
-              class="img-thumbnail w-75"
-            />
-          </div>
-
           <input
             type="hidden"
             class="form-control"
@@ -55,6 +47,17 @@
             value="<%= league._id %>"
           />
 
+          <div class="form-group pb-3">
+            <label for="password" class="fw-bold py-2">Password :</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              required
+            />
+          </div>
+
           <button class="btn btn-danger">Delete</button>
           <a
             href="/store/leagues"
@@ -62,12 +65,18 @@
             >Cancel</a
           >
         </form>
+
+        <div class="w-25 m-auto d-flex justify-content-center image">
+          <img
+            src="/uploads/<%=league.fileName%>"
+            alt="League Logo"
+            class="img-thumbnail w-50"
+          />
+        </div>
         <% } %>
       </main>
 
-      <footer class="position-absolute left-0 bottom-0 w-100">
-        <%- include('./partials/footer') -%>
-      </footer>
+      <footer><%- include('./partials/footer') -%></footer>
     </div>
   </body>
 </html>

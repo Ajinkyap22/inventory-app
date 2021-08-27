@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Team = require("../models/team");
 const League = require("../models/league");
 const Kit = require("../models/kit");
@@ -130,6 +131,13 @@ exports.team_delete_post = function (req, res, next) {
       kits: (callback) => Kit.find({ team: req.body.teamid }).exec(callback),
     },
     (err, results) => {
+      // check password
+      if (req.body.password !== process.env.PASSWORD) {
+        const error = new Error("Incorrect Password");
+        error.status = 401;
+        return next(error);
+      }
+
       if (err) return next(err);
 
       if (results.kits.length > 0) {
@@ -190,6 +198,13 @@ exports.team_update_post = [
 
   // process request
   (req, res, next) => {
+    // check password
+    if (req.body.password !== process.env.PASSWORD) {
+      const error = new Error("Incorrect Password");
+      error.status = 401;
+      return next(error);
+    }
+
     // extract errors
     const errors = validationResult(req.body);
 

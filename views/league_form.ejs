@@ -47,6 +47,19 @@
             />
           </div>
 
+          <% if(typeof isUpdating !== 'undefined'){ %>
+          <div class="form-group pb-3">
+            <label for="password" class="fw-bold py-2">Password :</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              required
+            />
+          </div>
+          <% } %>
+
           <div class="py-3 d-flex justify-content-start">
             <button class="btn btn-primary">
               <%= typeof isUpdating !== 'undefined' ? 'Update' : 'Create' %>
@@ -68,9 +81,7 @@
         <% } %>
       </main>
 
-      <footer class="position-absolute left-0 bottom-0 w-100">
-        <%- include('./partials/footer') -%>
-      </footer>
+      <footer><%- include('./partials/footer') -%></footer>
     </div>
   </body>
 </html>
