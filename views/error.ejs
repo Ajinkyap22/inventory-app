@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%- include('./partials/head') -%>
   <body>
-    <div class="container-fluid">
-      <header><%- include('./partials/header'); -%></header>
+    <div class="container-fluid text-center">
+      <header><%- include('./partials/header') -%></header>
 
-      <main class="main">
-        <h1><%= message %></h1>
-        <h2><%= error.status %></h2>
-        <pre><%= error.stack %></pre>
+      <main class="main mx-3">
+        <p class="lead">Looks like there was an error.</p>
+        <% if(error.status) { %>
+        <p class="text-danger">Error <%= error.status %>: <%= message %></p>
+        <% } else { %>
+        <p><%= message %></p>
+        <% } %>
+        <button class="btn btn-primary" onclick="window.history.back();">
+          Go back
+        </button>
       </main>
 
-      <footer><%- include('./partials/footer'); -%></footer>
+      <footer><%- include('./partials/footer') -%></footer>
     </div>
   </body>
 </html>

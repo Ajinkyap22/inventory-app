@@ -9,10 +9,6 @@
         <h1><%= title %>: <%= kit.name %></h1>
         <p class="pb-3"><%= kit.description %></p>
 
-        <div class="w-50 m-auto d-flex justify-content-center">
-          <img src="/uploads/<%=kit.fileName%>" alt="team Logo" class="w-50" />
-        </div>
-
         <p class="fw-bold pt-2">
           Please enter the password to confirm this action.
         </p>
@@ -38,11 +34,19 @@
             />
           </div>
 
-          <button class="btn btn-danger">Delete</button>
-          <a href="/store/kits" class="link-secondary px-3 text-decoration-none"
-            >Cancel</a
-          >
+          <div class="pb-3">
+            <button class="btn btn-danger">Delete</button>
+            <a
+              href="/store/kits"
+              class="link-secondary px-3 text-decoration-none"
+              >Cancel</a
+            >
+          </div>
         </form>
+
+        <div class="w-50 m-auto d-flex justify-content-center">
+          <img src="/uploads/<%=kit.fileName%>" alt="team Logo" class="w-50" />
+        </div>
       </main>
 
       <footer><%- include('./partials/footer') -%></footer>
