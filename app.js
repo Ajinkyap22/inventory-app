@@ -25,7 +25,20 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(helmet());
-
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://cdn.jsdelivr.net/"],
+      styleSrc: [
+        "'self'",
+        "https://cdn.jsdelivr.net/",
+        "https://fonts.googleapis.com/",
+      ],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+    },
+  })
+);
 app.use(compression());
 app.use(logger("dev"));
 app.use(express.json());
