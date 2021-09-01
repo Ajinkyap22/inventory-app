@@ -29,7 +29,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://cdn.jsdelivr.net/"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net/"],
       styleSrc: [
         "'self'",
         "https://cdn.jsdelivr.net/",
