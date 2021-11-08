@@ -1,6 +1,6 @@
 # Express Inventory Application
 
-> An Inventroy Management application for a football kit store.
+> An Inventory Management application for a football kit store.
 
 ## Table of contents
 
