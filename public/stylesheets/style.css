@@ -38,6 +38,10 @@ body {
   flex: 0 1 auto !important;
 }
 
+.letter-spacing {
+  letter-spacing: 0.5px !important;
+}
+
 @media only screen and (max-width: 768px) {
   .image {
     width: 50% !important;
