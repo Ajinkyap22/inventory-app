@@ -42,6 +42,15 @@ body {
   letter-spacing: 0.5px !important;
 }
 
+.btn {
+  font-weight: bold !important;
+  letter-spacing: 0.5px !important;
+}
+
+.kit-form {
+  min-height: 100%;
+}
+
 @media only screen and (max-width: 768px) {
   .image {
     width: 50% !important;
@@ -49,5 +58,10 @@ body {
 
   .subimage {
     width: 50% !important;
+  }
+
+  .form-container {
+    width: 100% !important;
+    display: block !important;
   }
 }
