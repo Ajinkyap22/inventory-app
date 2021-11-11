@@ -67,6 +67,11 @@ body {
   left: 47%;
 }
 
+.btn:hover {
+  transform: scale(1.05);
+  transition: all 0.3s;
+}
+
 .nav-link:hover {
   transform: scale(1.1);
   transition: all 0.3s;

@@ -50,14 +50,12 @@ exports.league_create_post = [
   body("name", "Name cannot be empty")
     .trim()
     .isLength({ min: 1 })
-    .escape()
     .isAlphanumeric()
     .withMessage("Name must be alphanumeric"),
 
   body("description", "Description cannot be empty")
     .trim()
-    .isLength({ min: 1 })
-    .escape(),
+    .isLength({ min: 1 }),
 
   // Process request
   (req, res, next) => {
@@ -178,15 +176,12 @@ exports.league_update_post = [
   body("name", "Name cannot be empty")
     .trim()
     .isLength({ min: 1 })
-    .escape()
     .isAlphanumeric()
     .withMessage("Name must be alphanumeric"),
 
   body("description", "Description cannot be empty")
     .trim()
-    .isLength({ min: 1 })
-    .escape(),
-
+    .isLength({ min: 1 }),
   // process request
   (req, res, next) => {
     // check for password

@@ -14,7 +14,7 @@
         <% if(error) { %>
         <p>Error getting data from the server.</p>
         <% } else { %>
-        <h2 class="pb-3">Leagues</h2>
+        <h3 class="pb-3">Browse by Leagues</h3>
 
         <div class="row mx-0 dist align-items-end align-items-sm-stretch">
           <% data.leagues.forEach((league, i) => { %>
@@ -45,7 +45,7 @@
           >See All Leagues</a
         >
 
-        <h2 class="pb-3">Teams</h2>
+        <h3 class="pb-3">Browse by Teams</h3>
 
         <div class="row mx-0 dist">
           <% data.teams.forEach((team, i) => { %>
@@ -73,7 +73,7 @@
 
         <a href="/store/teams" class="btn btn-primary my-5">See All Teams</a>
 
-        <h2 class="pb-3">Kits</h2>
+        <h3 class="pb-3">Browse by Kits</h3>
 
         <div class="row mx-0">
           <% data.kits.forEach((kit, i) => { %>

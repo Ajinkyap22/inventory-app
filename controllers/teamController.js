@@ -52,13 +52,11 @@ exports.team_create_get = function (req, res) {
 // Handle team create on POST.
 exports.team_create_post = [
   // Validate & sanitize
-  body("name", "Name cannot be empty").trim().isLength({ min: 3 }).escape(),
+  body("name", "Name cannot be empty").trim().isLength({ min: 3 }),
 
   body("description", "Description cannot be empty")
     .trim()
-    .isLength({ min: 3 })
-    .escape(),
-
+    .isLength({ min: 3 }),
   body("league", "League cannot be empty").trim().isLength({ min: 1 }).escape(),
 
   // Process request
@@ -187,13 +185,11 @@ exports.team_update_get = function (req, res, next) {
 // Handle team update on POST.
 exports.team_update_post = [
   // validate and sanitize
-  body("name", "Name cannot be empty").trim().isLength({ min: 3 }).escape(),
+  body("name", "Name cannot be empty").trim().isLength({ min: 3 }),
 
   body("description", "Description cannot be empty")
     .trim()
-    .isLength({ min: 3 })
-    .escape(),
-
+    .isLength({ min: 3 }),
   body("league", "League cannot be empty").trim().isLength({ min: 1 }).escape(),
 
   // process request
