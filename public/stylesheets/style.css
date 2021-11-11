@@ -51,6 +51,32 @@ body {
   min-height: 100%;
 }
 
+.active {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+.spinner-border {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  top: 45%;
+  left: 47%;
+}
+
+.nav-link:hover {
+  transform: scale(1.1);
+  transition: all 0.3s;
+}
+
+.footer:hover {
+  transform: scale(1.1);
+  transition: all 0.3s;
+}
+
 @media only screen and (max-width: 768px) {
   .image {
     width: 50% !important;
@@ -63,5 +89,11 @@ body {
   .form-container {
     width: 100% !important;
     display: block !important;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .spinner-border {
+    left: 40%;
   }
 }

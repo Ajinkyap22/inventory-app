@@ -2,7 +2,9 @@
 <html lang="en">
   <%- include('./partials/head') -%>
   <body>
-    <div class="container-fluid p-0">
+    <div><%- include('./partials/loader') -%></div>
+
+    <div class="container-fluid p-0 hidden">
       <header><%- include('./partials/header') -%></header>
 
       <main class="main mx-3">
@@ -23,7 +25,7 @@
           <img src="/uploads/<%=team.fileName%>" alt="team Logo" class="w-75" />
         </div>
 
-        <p class="pt-3"><strong>Kits :</strong></p>
+        <p class="pt-3"><strong class="lead fw-bold">Kits :</strong></p>
 
         <div class="row mx-0 text-center">
           <!-- prettier-ignore -->

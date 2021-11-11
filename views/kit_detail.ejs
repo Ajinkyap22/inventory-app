@@ -2,7 +2,9 @@
 <html lang="en">
   <%- include('./partials/head') -%>
   <body>
-    <div class="container-fluid p-0">
+    <div><%- include('./partials/loader') -%></div>
+
+    <div class="container-fluid p-0 hidden">
       <header><%- include('./partials/header'); -%></header>
 
       <main class="main mx-3">
@@ -24,7 +26,7 @@
         </div>
 
         <div class="pb-2">
-          <strong>Team : </strong>
+          <strong class="lead fw-bold">Team : </strong>
           <div class="w-25 my-3 subimage">
             <img
               src="/uploads/<%=kit.team.fileName%>"
